@@ -69,11 +69,36 @@ class SocialGraph:
         print("random friendships:")
         print(possibleFriendships)
         # Slice off totalFriendships from the front, create friendships
-        totalFriendships = avgFriendships * numUsers // 2
+        totalFriendships = avgFriendships * numUsers 
         print(f"Friendships to create: {totalFriendships}\n")
         for i in range(totalFriendships):
             friendship = possibleFriendships[i]
             self.addFriendship(friendship[0], friendship[1])
+
+
+        #CLASS solution for 0(n)
+        #ONLY effecient for sparse graphs
+        # self.lastID = 0
+        # self.users = {}
+        # self.friendships = {}
+
+        # #add users
+        # #call addUser() until our number of users is numUsers
+        # for i in range(numUsers):
+        #     self.addUser(f"user{i+1}")
+        
+        # totalFriendships = avgFriendships * numUsers // 2
+        # friendhsipsCreated = 0
+        # #pick a random number 1-n, pick anoher random number 1-n
+        # while friendhsipsCreated < totalFriendships:
+        #     userID = random.randint(1, self.lastID)
+        #     friendID = random.randint(1, self.lastID)
+
+        #     #create firendship between those 2 ids
+        #     if self.addFriendship(userID, friendID):
+        #         friendhsipsCreated += 2
+        #     #until you have friendhsip count = totalFirnedships
+
 
     def getAllSocialPaths(self, userID):
         """
@@ -101,13 +126,38 @@ class SocialGraph:
             last_vert = path[-1]
             # check if in visited
             if last_vert not in visited:
-                # mark as visited
+                # mark as visited. Storing the path here so you can see it when printing
                 visited[last_vert] = path
+                # for neighbors of lastvert, copy the path, append, and enquqe
                 for neighbor in self.friendships[last_vert]:
                     path_copy = path.copy()
                     path_copy.append(neighbor)
                     q.enqueue(path_copy)
         return visited
+
+        #CLASS SOLUTION
+        #do a bft, store paths as we go
+        #Create empty q
+        # q = Queue
+        #add path to the starting node to the q
+        #q.enque([userID])
+        #while q not empty
+        # while q.size() > 0:
+            #deque 1st path from queue
+            #path = q.deque()
+            #v = path[-1]
+            #chck if its been visisted
+            #if v not in visisted:
+            #if not, mart it as visited
+                # when we reach an unvisited node, add the path to visited dict
+                #visisted[v] = path
+            #add a path to each neighbor to the back of the queue
+                #for friend in self.friendships[v]:
+                #   path_copy = path.copy()
+                #   path_copy.append(friend)
+                #   q.enque(path_copy)
+        #return the visted dict
+        #return visited
 
 
 if __name__ == '__main__':

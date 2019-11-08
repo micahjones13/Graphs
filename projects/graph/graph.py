@@ -103,6 +103,19 @@ class Graph:
         # after it's all set, call the recursion function
         self.recur_help(s, visited)
 
+        #Other way of doing it 
+        #dft_recursive(self, starting_vertex, visited=None):
+        #   initizalse visited if it hasn't been yet
+        #   if visited is None:
+        #       visited = set()
+        #   #if the vert has not been visited...
+        #   if starting_vertex not in visited:
+        #   visited.add(starting_vertex)
+        #   print(starting_vertex)
+        #   call dft_recursive on each neighbor
+        #   for neighbor in self.vertices[starting_vertex]:
+        #       self.dft_recursive(neighbor, visited)
+
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
@@ -133,10 +146,12 @@ class Graph:
                     # Then add A PATH TO its neighbors to the back of the queue
                     for neighbor in self.vertices[last_vert]:
                         # COPY THE PATH
+                        #or do path_copy = list(path)
                         path_copy = path.copy()
                         # APPEND THE NEIGHOR TO THE BACK
                         path_copy.append(neighbor)
                         q.enqueue(path_copy)
+        #if nothing found, return none
 
     def dfs(self, starting_vertex, destination_vertex):
         """
